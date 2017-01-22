@@ -1,0 +1,61 @@
+{
+    "name": "tic-tac-toe-fcc",
+    "version": "1.0.0",
+    "description": "Tic-Tac-Toe built from JavaScript, CSS, and HTML. A Free Code Camp project.",
+    "main": "server.js",
+    "repository": "https://github.com/BrentonCozby/tic-tac-toe-fcc.git",
+    "author": "Brenton Cozby <brenton.cozby@gmail.com>",
+    "license": "MIT",
+    "scripts": {
+        "start": "node ./bin/www",
+        "dev": "nodemon ./bin/www -e js,css,pug",
+        "build": "yarn run build-js && yarn run build-css",
+        "watch": "yarn run watch-js & yarn run watch-css",
+        "build-js": "browserify --debug ./public/js/main.js -o ./public/js/bundle.js",
+        "watch-js": "watchify --debug ./public/js/main.js -o ./public/js/bundle.js --poll=500 -v",
+        "build-js-min": "browserify ./public/js/main.js | uglifyjs -o ./public/js/bundle.js",
+        "sass": "node-sass ./public/css/scss/main.scss -o ./public/css/",
+        "autoprefixer": "postcss --use autoprefixer ./public/css/main.css",
+        "build-css": "yarn run sass && yarn run autoprefixer",
+        "watch-css": "node-sass --watch --recursive ./public/css/scss/ -o ./public/css/",
+        "cleancss": "cleancss -o ./public/css/main.css ./public/css/main.css ",
+        "build-css-min": "yarn run sass && yarn run autoprefixer && yarn run cleancss",
+        "prod": "yarn run build-js-min && yarn run build-css-min"
+    },
+    "dependencies": {
+        "body-parser": "^1.16.0",
+        "cookie-parser": "^1.4.3",
+        "debug": "^2.6.0",
+        "express": "^4.14.0",
+        "h5bp": "^0.1.4",
+        "morgan": "^1.7.0",
+        "pug": "^2.0.0-beta6",
+        "serve-favicon": "^2.3.2"
+    },
+    "devDependencies": {
+        "autoprefixer": "^6.6.1",
+        "babel-preset-es2015": "^6.22.0",
+        "babelify": "^7.3.0",
+        "browserify": "^13.3.0",
+        "clean-css": "^3.4.24",
+        "envify": "^4.0.0",
+        "node-sass": "^4.3.0",
+        "nodemon": "^1.11.0",
+        "postcss-cli": "^2.6.0",
+        "uglify-js": "^2.7.5",
+        "watchify": "^3.8.0"
+    },
+    "browserify": {
+        "transform": [
+            [
+                "babelify",
+                {
+                    "presets": [
+                        "es2015"
+                    ]
+                }
+            ],
+            "envify"
+        ]
+    }
+}
