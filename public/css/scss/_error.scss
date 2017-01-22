@@ -1,0 +1,27 @@
+.error-container {
+    background-color: #ccc;
+    padding-top: 50px;
+    min-height: 100vh;
+    text-align: center;
+    @media all and (min-width: 768px) {
+        text-align: left;
+        padding-left: 80px;
+    }
+
+    .status {
+        font-size: 3rem;
+    }
+
+    .message {
+        font-size: 2.5rem;
+    }
+
+    .error-stack {
+        display: none;
+        font-size: 1.2rem;
+
+        @media all and (min-width: 768px) {
+            display: block;
+        }
+    }
+}
