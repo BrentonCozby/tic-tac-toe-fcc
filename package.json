@@ -1,62 +1,73 @@
 {
-    "name": "tic-tac-toe-fcc",
-    "version": "1.0.0",
-    "description": "Tic-Tac-Toe built from JavaScript, CSS, and HTML. A Free Code Camp project.",
-    "main": "server.js",
-    "repository": "https://github.com/BrentonCozby/tic-tac-toe-fcc.git",
-    "author": "Brenton Cozby <brenton.cozby@gmail.com>",
-    "license": "MIT",
-    "scripts": {
-        "start": "node ./bin/www",
-        "dev": "nodemon ./bin/www -e js,css,pug",
-        "build": "yarn run build-js && yarn run build-css",
-        "watch": "yarn run watch-js & yarn run watch-css",
-        "build-js": "browserify --debug ./public/js/main.js -o ./public/js/bundle.js",
-        "watch-js": "watchify --debug ./public/js/main.js -o ./public/js/bundle.js --poll=500 -v",
-        "build-js-min": "browserify ./public/js/main.js | uglifyjs -o ./public/js/bundle.js",
-        "sass": "node-sass ./public/css/scss/main.scss -o ./public/css/",
-        "autoprefixer": "postcss --use autoprefixer ./public/css/main.css",
-        "build-css": "yarn run sass && yarn run autoprefixer",
-        "watch-css": "node-sass --watch --recursive ./public/css/scss/ -o ./public/css/",
-        "cleancss": "cleancss -o ./public/css/main.css ./public/css/main.css ",
-        "build-css-min": "yarn run sass && yarn run autoprefixer && yarn run cleancss",
-        "prod": "yarn run build-js-min && yarn run build-css-min"
-    },
-    "dependencies": {
-        "body-parser": "^1.16.0",
-        "cookie-parser": "^1.4.3",
-        "debug": "^2.6.0",
-        "dotenv": "^4.0.0",
-        "express": "^4.14.0",
-        "h5bp": "^0.1.4",
-        "morgan": "^1.7.0",
-        "pug": "^2.0.0-beta6",
-        "serve-favicon": "^2.3.2"
-    },
-    "devDependencies": {
-        "autoprefixer": "^6.6.1",
-        "babel-preset-es2015": "^6.22.0",
-        "babelify": "^7.3.0",
-        "browserify": "^13.3.0",
-        "clean-css": "^3.4.24",
-        "envify": "^4.0.0",
-        "node-sass": "^4.3.0",
-        "nodemon": "^1.11.0",
-        "postcss-cli": "^2.6.0",
-        "uglify-js": "^2.7.5",
-        "watchify": "^3.8.0"
-    },
-    "browserify": {
-        "transform": [
-            [
-                "babelify",
-                {
-                    "presets": [
-                        "es2015"
-                    ]
-                }
-            ],
-            "envify"
-        ]
-    }
+  "name": "tic-tac-toe-fcc",
+  "version": "1.0.0",
+  "description": "Tic-Tac-Toe built from JavaScript, CSS, and HTML. A Free Code Camp project.",
+  "main": "index.js",
+  "scripts": {
+    "start": "browser-sync start -s 'dist' -f 'dist' --no-open --no-notify --reload-debounce 50",
+    "setup-for-dev": "npm-run-all --sequential rmprod copy-to-dist build:html",
+    "dev": "NODE_ENV=development npm-run-all --parallel start watch:*",
+    "prod": "NODE_ENV=production npm-run-all --sequential rmprod copy-to-dist minify:js minify:css prepend-banner hash-filenames minify:html build:sw",
+    "build:html": "NODE_ENV=production babel-node build-tools/ejs-to-html.js",
+    "build:js": "webpack -d",
+    "build:css": "npm run sass && npm run autoprefixer",
+    "watch:html": "NODE_ENV=development babel-node build-tools/ejs-to-html.js --watch",
+    "watch:js": "webpack -w -d --display minimal",
+    "watch:css": "npm run sass && node-sass -w -r src/css -o dist/css --source-map true",
+    "minify:html": "npm run build:html && babel-node build-tools/minify-html.js",
+    "minify:js": "webpack -p",
+    "minify:css": "npm run build:css && babel-node build-tools/minify-css.js",
+    "sass": "node-sass src/css -o dist/css --source-map-embed true",
+    "autoprefixer": "postcss dist/css/**/*.css --use autoprefixer -r",
+    "copy-to-dist": "babel-node build-tools/copy-to-dist.js",
+    "hash-filenames": "babel-node build-tools/hash-filenames.js",
+    "prepend-banner": "babel-node build-tools/prepend-banner.js",
+    "build:sw": "babel-node build-tools/build-service-worker.js",
+    "rmprod": "rimraf filename-map.json && rimraf dist",
+    "eslint": "eslint"
+  },
+  "author": "Brenton Cozby",
+  "license": "MIT",
+  "devDependencies": {
+    "autoprefixer": "^7.2.3",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.2",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-stage-0": "^6.24.1",
+    "browser-sync": "^2.21.0",
+    "clean-css": "^4.1.9",
+    "ejs": "^2.5.7",
+    "eslint": "^4.14.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-html": "^3.2.2",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.5.1",
+    "html-minifier": "^3.5.8",
+    "node-sass": "^4.7.2",
+    "npm-run-all": "^4.1.2",
+    "postcss-cli": "^4.1.1",
+    "rimraf": "^2.6.2",
+    "serve": "^6.4.3",
+    "sw-precache": "^5.2.0",
+    "uglifyjs-webpack-plugin": "^0.4.6",
+    "webpack": "^3.10.0"
+  },
+  "keywords": [
+    "EJS",
+    "SASS",
+    "Webpack",
+    "Boilerplate",
+    "Static",
+    "NodeJS"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BrentonCozby/tic-tac-toe-fcc.git"
+  },
+  "bugs": {
+    "url": "https://github.com/BrentonCozby/tic-tac-toe-fcc/issues"
+  },
+  "homepage": "https://github.com/BrentonCozby/tic-tac-toe-fcc#readme"
 }

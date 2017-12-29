@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<%- include(`${partials}/head`, {pageTitle: 'Home'}); -%>
+<body>
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+
+    <header role="banner">
+        <nav role="navigation"></nav>
+    </header>
+
+    <main role="main">
+        <h1>Tic-Tac-Toe</h1>
+
+        <div id="select" class="select">
+            <div id="select-opponent" class="select-opponent">
+                <h2 class="select-title">Opponent</h2>
+                <input id="human" type="radio" name="opponent" value="human" class="select-radio visuallyhidden" />
+                <label for="human" class="select-label opponent">Human</label>
+                <input id="computer" type="radio" name="opponent" value="computer" class="select-radio visuallyhidden" />
+                <label for="computer" class="select-label opponent">Computer</label>
+            </div>
+            <div id="select-piece" class="select-piece">
+                <h2 class="select-title">Your Piece</h2>
+                <input id="x-piece" type="radio" name="choose-piece" value="x-piece" class="select-radio visuallyhidden" />
+                <label for="x-piece" class="select-label piece x-piece"></label>
+                <input id="o-piece" type="radio" name="choose-piece" value="o-piece" class="select-radio visuallyhidden" />
+                <label for="o-piece" class="select-label piece o-piece"></label>
+            </div>
+            <button id="start" class="start">START</button>
+        </div>
+
+        <div id="modal" class="modal">
+            <h2 id="modalWinner" class="modal-winner"></h2>
+            <button id="modalButton" class="modal-button">Play Again</button>
+        </div>
+
+        <div id="game" class="game">
+            <h3>Turn:
+                <span id="turn"></span>
+            </h3>
+            <table id="gameBoard" class="gameBoard">
+                <tr class="row">
+                    <td id="square1" class="square sq1"></td>
+                    <td id="square2" class="square sq2"></td>
+                    <td id="square3" class="square sq3"></td>
+                </tr>
+                <tr class="row">
+                    <td id="square4" class="square sq4"></td>
+                    <td id="square5" class="square sq5"></td>
+                    <td id="square6" class="square sq6"></td>
+                </tr>
+                <tr class="row">
+                    <td id="square7" class="square sq7"></td>
+                    <td id="square8" class="square sq8"></td>
+                    <td id="square9" class="square sq9"></td>
+                </tr>
+            </table>
+
+            <div class="score-home-container">
+                <h2 class="score-title">Score</h2>
+                <button id="home" class="home">Home</button>
+            </div>
+
+            <table id="scoreBoard" class="scoreBoard">
+                <tr class="player-info">
+                    <td id="p1score" class="player-info-score">0</td>
+                    <td>
+                        <input id="player1" type="text" onclick="this.select()" value="Player1" autocomplete="off" autocorrect="off" autocapitalize="off"
+                            spellcheck="false" class="player-info-name" />
+                    </td>
+                </tr>
+                <tr class="player-info">
+                    <td id="p2score" class="player-info-score">0</td>
+                    <td>
+                        <input id="player2" type="text" onclick="this.select()" value="Player2" autocomplete="off" autocorrect="off" autocapitalize="off"
+                            spellcheck="false" class="player-info-name" />
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </main>
+
+    <%- include(`${partials}/footer`); -%>
+    <%- include(`${partials}/scripts`); -%>
+</body>
+</html>

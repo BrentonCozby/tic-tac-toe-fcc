@@ -1,0 +1,56 @@
+{
+    "env": {
+        "browser": true,
+        "commonjs": true,
+        "es6": true,
+        "node": true,
+        "shared-node-browser": true,
+        "serviceworker": true
+    },
+    "extends": "airbnb",
+    "parserOptions": {
+        "sourceType": "module",
+        "ecmaVersion": 8
+    },
+    "plugins": [
+        "html",
+        "import"
+    ],
+    "rules": {
+        "indent": [
+            "error",
+            4,
+            {"SwitchCase": 1}
+        ],
+        "linebreak-style": [
+            "error",
+            "unix"
+        ],
+        "quotes": [
+            "error",
+            "single"
+        ],
+        "semi": [
+            "error",
+            "never"
+        ],
+        "no-fallthrough": "off",
+        "arrow-parens": "off",
+        "consistent-return": "off"
+    },
+    "globals": {
+        "NODE_ENV": false,
+        "PP": false,
+        "SITE_TITLE": false,
+        "SITE_NAME": false,
+        "DESCRIPTION": false,
+        "SITE_URL": false,
+        "SITE_IMAGE": false,
+        "DEVELOPER_NAME": false,
+        "DEVELOPER_URL": false,
+        "GOOGLE_ANALYTICS_ID": false,
+        "DEV_PATH": false,
+        "$": false,
+        "libs": false
+    }
+}
